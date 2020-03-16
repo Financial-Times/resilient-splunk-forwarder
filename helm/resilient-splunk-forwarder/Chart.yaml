@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 description: The resilient-splunk-forwarder chart for Kubernetes
 name: resilient-splunk-forwarder
 version: 0.0.0
