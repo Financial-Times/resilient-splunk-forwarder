@@ -24,6 +24,6 @@ metrics:
   interval: 15s
   # the name of the prometheus instance, as defined in
   # content-k8s-prometheus\helm\content-k8s-prometheus\app-configs\monitoring-metrics_{env}.yaml
-  prometheusInstance: monitoring-metrics
+  prometheusInstance: upp-prometheus
 annotations:
-  iam.amazonaws.com/role: "K8sPacSplunkFWS3"
+  iam.amazonaws.com/role: "K8sSplunkFWS3"
