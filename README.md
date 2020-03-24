@@ -82,3 +82,7 @@ However, due to having multiple workers, this will not affect messages that are 
 parameter that is != `local`.
 - NOTE: `/__build-info` and `/__gtg` endpoints are not logged as they are called every second from varnish/vulcand
 and this information is not needed in logs/splunk.
+
+## Change/Rotate sealed secrets
+
+Please reffer to documentation in [pac-global-sealed-secrets-eks](https://github.com/Financial-Times/pac-global-sealed-secrets-eks/blob/master/README.md). Here are explained details how to create new, change existing sealed secrets.
