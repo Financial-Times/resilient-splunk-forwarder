@@ -1,3 +1,0 @@
-# Values used for the deployed application.
-service:
-  name: resilient-splunk-forwarder
