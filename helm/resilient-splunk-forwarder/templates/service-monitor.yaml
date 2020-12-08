@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   labels:
-    component: {{ .Values.service.name }}
+    component: {{ .Values.service.name }}-2
     prometheus: {{ .Values.metrics.prometheusInstance }}
   name: {{ .Values.service.name }}
 spec:
