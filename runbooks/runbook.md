@@ -2,7 +2,6 @@
     Written in the format prescribed by https://github.com/Financial-Times/runbook.md.
     Any future edits should abide by this format.
 -->
-
 # UPP - Resilient Splunk Forwarder
 
 Forwards logs cached in S3 to Splunk
@@ -13,8 +12,8 @@ resilient-splunk-forwarder
 
 ## Primary URL
 
-<https://upp-prod-delivery-glb.upp.ft.com/__resilient-splunk-forwarder/>
-<https://upp-prod-publish-glb.upp.ft.com/__resilient-splunk-forwarder/>
+https://upp-prod-delivery-glb.upp.ft.com/__resilient-splunk-forwarder/
+https://upp-prod-publish-glb.upp.ft.com/__resilient-splunk-forwarder/
 
 ## Service Tier
 
@@ -23,23 +22,6 @@ Platinum
 ## Lifecycle Stage
 
 Production
-
-## Delivered By
-
-content
-
-## Supported By
-
-content
-
-## Known About By
-
-- mihail.mihaylov
-- hristo.georgiev
-- elitsa.pavlova
-- kalin.arsov
-- elina.kaneva
-- georgi.ivanov
 
 ## Host Platform
 
@@ -57,9 +39,19 @@ No
 
 No
 
-## Dependencies
+<!-- Placeholder - remove HTML comment markers to activate
+## Can Download Personal Data
+Choose Yes or No
 
-- splunkcloud
+...or delete this placeholder if not applicable to this system
+-->
+
+<!-- Placeholder - remove HTML comment markers to activate
+## Can Contact Individuals
+Choose Yes or No
+
+...or delete this placeholder if not applicable to this system
+-->
 
 ## Failover Architecture Type
 
@@ -97,6 +89,14 @@ Manual
 
 The deployment is automated.
 
+<!-- Placeholder - remove HTML comment markers to activate
+## Heroku Pipeline Name
+Enter descriptive text satisfying the following:
+This is the name of the Heroku pipeline for this system. If you don't have a pipeline, this is the name of the app in Heroku. A pipeline is a group of Heroku apps that share the same codebase where each app in a pipeline represents the different stages in a continuous delivery workflow, i.e. staging, production.
+
+...or delete this placeholder if not applicable to this system
+-->
+
 ## Key Management Process Type
 
 None
@@ -107,17 +107,17 @@ The service is not using AWS keys but IAM role to access the S3 bucket
 
 ## Monitoring
 
-- https://upp-prod-publish-us.upp.ft.com/__health
-- https://upp-prod-publish-eu.upp.ft.com/__health
-- https://upp-prod-delivery-us.upp.ft.com/__health
-- https://upp-prod-delivery-eu.upp.ft.com/__health
-- https://pac-prod-eu.upp.ft.com/__health
-- https://pac-prod-us.upp.ft.com/__health
+*   <https://upp-prod-publish-us.upp.ft.com/__health>
+*   <https://upp-prod-publish-eu.upp.ft.com/__health>
+*   <https://upp-prod-delivery-us.upp.ft.com/__health>
+*   <https://upp-prod-delivery-eu.upp.ft.com/__health>
+*   <https://pac-prod-eu.upp.ft.com/__health>
+*   <https://pac-prod-us.upp.ft.com/__health>
 
 ## First Line Troubleshooting
 
-https://github.com/Financial-Times/upp-docs/tree/master/guides/ops/first-line-troubleshooting
+<https://github.com/Financial-Times/upp-docs/tree/master/guides/ops/first-line-troubleshooting>
 
 ## Second Line Troubleshooting
 
-Please refer to the https://github.com/Financial-Times/resilient-splunk-forwarder/blob/master/README.md for more troubleshooting information.
+Please refer to the <https://github.com/Financial-Times/resilient-splunk-forwarder/blob/master/README.md> for more troubleshooting information.
