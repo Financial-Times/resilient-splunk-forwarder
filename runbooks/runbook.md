@@ -24,19 +24,6 @@ Platinum
 
 Production
 
-## Delivered By
-
-content
-
-## Known About By
-
-- mihail.mihaylov
-- hristo.georgiev
-- elitsa.pavlova
-- kalin.arsov
-- elina.kaneva
-- georgi.ivanov
-
 ## Host Platform
 
 AWS
@@ -52,10 +39,6 @@ No
 ## Contains Sensitive Data
 
 No
-
-## Dependencies
-
-- splunkcloud
 
 ## Failover Architecture Type
 
