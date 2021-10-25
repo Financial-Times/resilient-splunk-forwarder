@@ -5,7 +5,7 @@
 
 # UPP - Resilient Splunk Forwarder
 
-Forwards logs cached in S3 to Splunk
+Resilient Splunk Forwarder is a utility service that reads logs stored in S3 buckets and forwards them to Splunk for indexing.
 
 ## Code
 
@@ -78,11 +78,12 @@ The deployment is automated.
 
 ## Key Management Process Type
 
-None
+PartiallyAutomated
 
 ## Key Management Details
 
-The service is not using AWS keys but IAM role to access the S3 bucket
+To access the S3 buckets the service is using IAM role, so no key rotation is needed there. 
+To rotate Splunk token follow the [guide](https://github.com/Financial-Times/resilient-splunk-forwarder#changerotate-sealed-secrets) in the README. 
 
 ## Monitoring
 
