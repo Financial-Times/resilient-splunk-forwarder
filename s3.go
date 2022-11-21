@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 	"strings"
 	"sync"
 	"time"
 
+	"github.com/Financial-Times/go-logger/v2"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -37,7 +38,7 @@ type s3Service struct {
 	latestError error
 }
 
-var NewS3Service = func(bucketName string, awsRegion string, prefix string) (Cache, error) {
+var NewS3Service = func(bucketName, awsRegion, prefix string, log *logger.UPPLogger) (Cache, error) {
 	wrks := 8
 	spareWorkers := 1
 
@@ -64,6 +65,13 @@ var NewS3Service = func(bucketName string, awsRegion string, prefix string) (Cac
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create AWS session: %v", err)
 	}
+
+	v, err := sess.Config.Credentials.Get()
+	if err != nil {
+		return nil, fmt.Errorf("failed to obtain AWS authentication: %w", err)
+	}
+	log.Infof("Establishing AWS session using [%s] as authentication provider", v.ProviderName)
+
 	svc := s3.New(sess)
 	return &s3Service{bucketName: bucketName, prefix: prefix, svc: svc}, nil
 }
@@ -145,7 +153,7 @@ func (s *s3Service) Get(key string) (string, error) {
 	}
 
 	defer val.Body.Close()
-	buf, err := ioutil.ReadAll(val.Body)
+	buf, err := io.ReadAll(val.Body)
 	return string(buf), err
 }
 

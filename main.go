@@ -152,7 +152,7 @@ func initApp() *cli.Cli {
 
 		defer config.UPPLogger.Infof("Resilient Splunk forwarder: Stopped\n")
 
-		s3, err := NewS3Service(config.bucket, config.awsRegion, config.env)
+		s3, err := NewS3Service(config.bucket, config.awsRegion, config.env, config.UPPLogger)
 		if err != nil {
 			config.UPPLogger.Fatalf(err.Error())
 		}
