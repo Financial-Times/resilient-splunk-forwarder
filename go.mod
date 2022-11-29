@@ -11,7 +11,8 @@ require (
 	github.com/pborman/uuid v0.0.0-20170612153648-e790cca94e6c
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v0.9.0-pre1.0.20180907102542-7858729281ec
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.7.0
+	go.uber.org/multierr v1.8.0
 )
 
 require (
@@ -28,8 +29,9 @@ require (
 	github.com/prometheus/procfs v0.0.0-20180725123919-05ee40e3a273 // indirect
 	github.com/sirupsen/logrus v1.0.5 // indirect
 	github.com/stretchr/objx v0.1.2-0.20180129172003-8a3f7159479f // indirect
+	go.uber.org/atomic v1.10.0 // indirect
 	golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2 // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
-	golang.org/x/sys v0.0.0-20200107162124-548cf772de50 // indirect
-	gopkg.in/yaml.v2 v2.2.2 // indirect
+	golang.org/x/sys v0.2.0 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )

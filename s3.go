@@ -14,6 +14,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/pborman/uuid"
+	"go.uber.org/multierr"
 )
 
 const maxKeys = int64(100)
@@ -70,7 +71,7 @@ var NewS3Service = func(bucketName, awsRegion, prefix string, log *logger.UPPLog
 	if err != nil {
 		return nil, fmt.Errorf("failed to obtain AWS authentication: %w", err)
 	}
-	log.Infof("Establishing AWS session using [%s] as authentication provider", v.ProviderName)
+	log.WithField("ProviderName", v.ProviderName).Info("Establishing AWS session using authentication provider")
 
 	svc := s3.New(sess)
 	return &s3Service{bucketName: bucketName, prefix: prefix, svc: svc}, nil
@@ -116,7 +117,7 @@ func (s *s3Service) ListAndDelete() ([]string, error) {
 	}
 
 	if *out.KeyCount > 0 {
-		_, err = s.svc.DeleteObjects(&s3.DeleteObjectsInput{
+		delOutput, err := s.svc.DeleteObjects(&s3.DeleteObjectsInput{
 			Bucket: aws.String(s.bucketName),
 			Delete: &s3.Delete{
 				Objects: ids,
@@ -126,6 +127,15 @@ func (s *s3Service) ListAndDelete() ([]string, error) {
 			// don't capture latest error in case another instance has deleted them first
 			return nil, err
 		}
+		if delOutput != nil && len(delOutput.Errors) > 0 {
+			var merr error
+			for _, e := range delOutput.Errors {
+				merr = multierr.Append(merr, fmt.Errorf("deleting %q: %s", *e.Key, *e.Code))
+			}
+
+			return nil, err
+		}
+
 		s.latestError = err
 		return vals, nil
 	}
