@@ -39,7 +39,7 @@ type s3Service struct {
 	latestError error
 }
 
-var NewS3Service = func(bucketName, awsRegion, prefix string, log *logger.UPPLogger) (Cache, error) {
+var NewS3Service = func(bucketName, bucketRegion, prefix string, log *logger.UPPLogger) (Cache, error) {
 	wrks := 8
 	spareWorkers := 1
 
@@ -59,7 +59,7 @@ var NewS3Service = func(bucketName, awsRegion, prefix string, log *logger.UPPLog
 	}
 	sess, err := session.NewSession(
 		&aws.Config{
-			Region:     aws.String(awsRegion),
+			Region:     aws.String(bucketRegion),
 			MaxRetries: aws.Int(1),
 			HTTPClient: hc,
 		})

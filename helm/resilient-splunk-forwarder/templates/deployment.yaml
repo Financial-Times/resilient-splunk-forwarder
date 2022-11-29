@@ -47,7 +47,7 @@ spec:
             configMapKeyRef:
               name: global-config
               key: splunk.forwarder.s3.bucket
-        - name: AWS_REGION
+        - name: AWS_BUCKET_REGION
           valueFrom:
             configMapKeyRef:
               name: global-config

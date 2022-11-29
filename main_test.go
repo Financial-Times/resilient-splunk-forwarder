@@ -50,7 +50,7 @@ func TestMain(m *testing.M) {
 
 	os.Setenv("TOKEN", config.token)
 	os.Setenv("BUCKET_NAME", config.bucket)
-	os.Setenv("AWS_REGION", "eu")
+	os.Setenv("AWS_BUCKET_REGION", "eu")
 	os.Setenv("FORWARDER_URL", config.fwdURL)
 
 	app := initApp()
