@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"errors"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strings"
 	"sync"
@@ -63,7 +62,7 @@ func (splunk *splunkClient) forward(s string, callback func(string, error)) {
 		splunk.config.UPPLogger.Infof(err.Error())
 	} else {
 		defer r.Body.Close()
-		io.Copy(ioutil.Discard, r.Body)
+		_, _ = io.Copy(io.Discard, r.Body)
 		if r.StatusCode != 200 {
 			errorCounter.Inc()
 			splunk.config.UPPLogger.Infof("Unexpected status code %v (%v) when sending %v to %v\n", r.StatusCode, r.Status, s, splunk.config.fwdURL)

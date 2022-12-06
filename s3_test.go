@@ -3,11 +3,13 @@ package main
 import (
 	"bytes"
 	"errors"
+	"io"
+	"testing"
+
+	"github.com/Financial-Times/go-logger/v2"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"io/ioutil"
-	"testing"
 )
 
 type mockS3Interface struct {
@@ -78,7 +80,7 @@ func (m *mockS3Interface) GetObject(input *s3.GetObjectInput) (*s3.GetObjectOutp
 	}
 
 	output := &s3.GetObjectOutput{
-		Body: ioutil.NopCloser(bytes.NewBufferString(successResponse)),
+		Body: io.NopCloser(bytes.NewBufferString(successResponse)),
 	}
 
 	return output, nil
@@ -87,7 +89,9 @@ func (m *mockS3Interface) GetObject(input *s3.GetObjectInput) (*s3.GetObjectOutp
 var _ s3Interface = (*mockS3Interface)(nil)
 
 func Test_S3_failServiceCreation(t *testing.T) {
-	s3service, errServiceCreation := NewS3Service("", "no-region", "")
+	t.Setenv("AWS_ACCESS_KEY_ID", "MOCK_ID")
+	t.Setenv("AWS_SECRET_ACCESS_KEY", "MOCK_SECRET")
+	s3service, errServiceCreation := NewS3Service("", "no-region", "", logger.NewUnstructuredLogger())
 
 	assert.Equal(t, nil, errServiceCreation)
 	assert.NotEqual(t, nil, s3service)

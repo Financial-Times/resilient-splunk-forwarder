@@ -41,7 +41,7 @@ type appConfig struct {
 	chanBuffer    int
 	token         string
 	bucket        string
-	awsRegion     string
+	bucketRegion  string
 	UPPLogger     *logger.UPPLogger
 }
 
@@ -112,11 +112,11 @@ func initApp() *cli.Cli {
 		Desc:   "S3 bucket for caching failed events",
 		EnvVar: "BUCKET_NAME",
 	})
-	awsRegion := app.String(cli.StringOpt{
-		Name:   "awsRegion",
+	awsBucketRegion := app.String(cli.StringOpt{
+		Name:   "awsBucketRegion",
 		Value:  "",
 		Desc:   "AWS region for S3",
-		EnvVar: "AWS_REGION",
+		EnvVar: "AWS_BUCKET_REGION",
 	})
 
 	logLevel := app.String(cli.StringOpt{
@@ -138,7 +138,7 @@ func initApp() *cli.Cli {
 			chanBuffer:    *chanBuffer,
 			token:         *token,
 			bucket:        *bucket,
-			awsRegion:     *awsRegion,
+			bucketRegion:  *awsBucketRegion,
 			UPPLogger:     logger.NewUPPLogger(*appSystemCode, *logLevel),
 		}
 
@@ -152,7 +152,7 @@ func initApp() *cli.Cli {
 
 		defer config.UPPLogger.Infof("Resilient Splunk forwarder: Stopped\n")
 
-		s3, err := NewS3Service(config.bucket, config.awsRegion, config.env)
+		s3, err := NewS3Service(config.bucket, config.bucketRegion, config.env, config.UPPLogger)
 		if err != nil {
 			config.UPPLogger.Fatalf(err.Error())
 		}
