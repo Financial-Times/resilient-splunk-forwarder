@@ -91,7 +91,7 @@ func (logProcessor *logProcessor) Start() {
 			for msg := range logProcessor.inChan {
 				err := logProcessor.cache.Put(msg)
 				if err != nil {
-					logProcessor.uppLogger.Infof("Unexpected error when caching messages: %v\n", err)
+					logProcessor.uppLogger.Errorf("Unexpected error when caching messages: %v\n", err)
 				}
 			}
 		}()
@@ -103,9 +103,9 @@ func (logProcessor *logProcessor) Start() {
 		for !logProcessor.isStopped() {
 			entries, err := logProcessor.Dequeue()
 			if err != nil {
-				logProcessor.uppLogger.Infof("Failure retrieving logs from S3 %v\n", err)
+				logProcessor.uppLogger.Errorf("Failure retrieving logs from S3 %v\n", err)
 			} else if len(entries) > 0 {
-				logProcessor.uppLogger.Infof("Read %v messages from S3\n", len(entries))
+				logProcessor.uppLogger.Debugf("Read %v messages from S3\n", len(entries))
 			}
 			for _, entry := range entries {
 				mutex.Lock()
@@ -124,7 +124,7 @@ func (logProcessor *logProcessor) Start() {
 					logProcessor.uppLogger.Infof("Sleeping for %v\n", sleepDuration)
 					time.Sleep(sleepDuration)
 				}
-				logProcessor.uppLogger.Infof("Sending document to channel")
+				logProcessor.uppLogger.Debug("Sending document to channel")
 				prometheusTimer := prometheus.NewTimer(queueLatency)
 				logProcessor.outChan <- entry
 				prometheusTimer.ObserveDuration()
