@@ -51,21 +51,26 @@ func (splunk *splunkClient) forward(s string, callback func(string, error)) {
 
 	req, err := http.NewRequest("POST", splunk.config.fwdURL, strings.NewReader(s))
 	if err != nil {
-		splunk.config.UPPLogger.Infof(err.Error())
+		splunk.config.UPPLogger.Errorf("creating request: %s", err.Error())
+		splunk.setHealth(err)
+		callback(s, err)
+		return
 	}
+
 	tokenWithKeyword := strings.Join([]string{"Splunk", splunk.config.token}, " ") //join strings "Splunk" and value of -token argument
 	req.Header.Set("Authorization", tokenWithKeyword)
 	requestCounter.Inc()
+
 	r, err := splunk.client.Do(req)
 	if err != nil {
 		errorCounter.Inc()
-		splunk.config.UPPLogger.Infof(err.Error())
+		splunk.config.UPPLogger.Errorf("sedning request: %s", err.Error())
 	} else {
 		defer r.Body.Close()
 		_, _ = io.Copy(io.Discard, r.Body)
 		if r.StatusCode != 200 {
 			errorCounter.Inc()
-			splunk.config.UPPLogger.Infof("Unexpected status code %v (%v) when sending %v to %v\n", r.StatusCode, r.Status, s, splunk.config.fwdURL)
+			splunk.config.UPPLogger.Errorf("Unexpected status code %v (%v) when sending %v to %v\n", r.StatusCode, r.Status, s, splunk.config.fwdURL)
 			if r.StatusCode != 400 {
 				err = errors.New(r.Status)
 			} else {
@@ -74,6 +79,7 @@ func (splunk *splunkClient) forward(s string, callback func(string, error)) {
 			}
 		}
 	}
+
 	splunk.setHealth(err)
 	callback(s, err)
 }
