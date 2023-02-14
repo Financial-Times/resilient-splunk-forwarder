@@ -6,7 +6,7 @@ require (
 	github.com/Financial-Times/go-fthealth v0.0.0-20171204124831-1b007e2b37b7
 	github.com/Financial-Times/go-logger/v2 v2.0.1
 	github.com/Financial-Times/service-status-go v0.0.0-20160323111542-3f5199736a3d
-	github.com/aws/aws-sdk-go v1.33.10
+	github.com/aws/aws-sdk-go v1.34.0
 	github.com/jawher/mow.cli v0.0.0-20170430135212-8327d12beb75
 	github.com/pborman/uuid v0.0.0-20170612153648-e790cca94e6c
 	github.com/pkg/errors v0.9.1
