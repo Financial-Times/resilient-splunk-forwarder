@@ -60,12 +60,12 @@ spec:
         - name: FORWARD_URL
           valueFrom:
             secretKeyRef:
-              name: global-secrets
+              name: doppler-global-secret
               key: HEC_URL
         - name: TOKEN
           valueFrom:
             secretKeyRef:
-              name: global-secrets
+              name: doppler-global-secret
               key: HEC_TOKEN
         ports:
         - containerPort: 8080
